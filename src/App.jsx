@@ -3,6 +3,7 @@ import Nav from './Nav'
 import ScheduleView from './ScheduleView'
 import ClassesView from './ClassesView'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import StudentRow from './StudentRow'
 
 function App() {
 
