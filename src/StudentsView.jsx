@@ -11,7 +11,7 @@ const [students, setStudents] = useState ([
 
 const [name, setName]  = useState("");
 const [studentID, setStudenID] = useState("");
-const [email, setemail] = useState("");
+const [email, setEmail] = useState("");
 
 function Add(e)
 {
