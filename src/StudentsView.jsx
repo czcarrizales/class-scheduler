@@ -29,7 +29,7 @@ function Add(e)
     setStudents((prev) => [newStudent, ...prev]);
     setName = ("");
     setStudenID = ("");
-    setemail = ("");
+    setEmail = ("");
 }
 
 
