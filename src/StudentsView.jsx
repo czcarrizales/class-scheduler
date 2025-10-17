@@ -27,9 +27,9 @@ function Add(e)
         email: email.trim() || "-"
     };
     setStudents((prev) => [newStudent, ...prev]);
-    setName = ("");
-    setStudenID = ("");
-    setEmail = ("");
+    setName("");
+    setStudenID("");
+    setEmail("");
 }
 
 
