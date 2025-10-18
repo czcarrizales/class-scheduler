@@ -17,39 +17,39 @@ function ClassesView() {
       <div className="classes-content">
         <h1 className="classes-title">Classes View</h1>
 
+        {/* Search */}
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search classes..."
+          />
+          </div>
+
         {/* Available Classes */}
         <div className="class-list">
           {classes.map((cls, index) => (
-            <div key={index} className="class-card">
-              <div className="class-info">
-                <h2 className="class-name">{cls.name}</h2>
-                <p className="class-days">{cls.days}</p>
-              </div>
-              <div className="class-time">{cls.time}</div>
-              <button
-                className="add-button"
-                onClick={() => handleAddClass(cls)}
-              >
+            <div key={index} className="row-main">
+              <div className="course">{cls.name}</div>
+              <div className="days">{cls.days}</div>
+              <div className="time">{cls.time}</div>
+              <button className="add-button" onClick={() => handleAddClass(cls)}>
                 Add
               </button>
             </div>
           ))}
         </div>
 
-
         {/* My Classes Section */}
         {myClasses.length > 0 && (
           <div className="my-classes">
-            <div className="my-classes-header">
-              <h2 className="my-classes-title">My Classes</h2>
-            </div>
-
+            <h2 className="my-classes-title">My Classes</h2>
             <ul className="my-classes-list">
               {myClasses.map((cls, index) => (
-                <li key={index} className="my-class-item">
-                  <span>{cls.name}</span>
-                  <span>{cls.days}</span>
-                  <span>{cls.time}</span>
+                <li key={index} className="row-main">
+                  <div className="course">{cls.name}</div>
+                  <div className="days">{cls.days}</div>
+                  <div className="time">{cls.time}</div>
                 </li>
               ))}
             </ul>
