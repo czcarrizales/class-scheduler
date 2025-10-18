@@ -25,3 +25,5 @@ export const StudentModel = {
   remove(id) { writeAll(readAll().filter(s => s.id !== id)); },
   clearAll() { storage.remove(); },
 };
+
+export default StudentModel
