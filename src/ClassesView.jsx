@@ -10,6 +10,22 @@ function ClassesView() {
   ];
 
   const [myClasses, setMyClasses] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Function to add
+  const handleAddClass = (selectedClass) => {
+    setMyClasses((prev) => [...prev, selectedClass]);
+  };
+
+  // Function to remove
+  const handleRemoveClass = (indexToRemove) => {
+    setMyClasses((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
+  // Function to search
+  const filteredClasses = classes.filter((cls) =>
+    cls.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
 
   return (
@@ -23,37 +39,49 @@ function ClassesView() {
             type="text"
             className="search-input"
             placeholder="Search classes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           </div>
 
         {/* Available Classes */}
+        <h2>Available Classes</h2>
         <div className="class-list">
-          {classes.map((cls, index) => (
-            <div key={index} className="row-main">
-              <div className="course">{cls.name}</div>
-              <div className="days">{cls.days}</div>
-              <div className="time">{cls.time}</div>
-              <button className="add-button" onClick={() => handleAddClass(cls)}>
-                Add
-              </button>
-            </div>
-          ))}
+          {filteredClasses.length > 0 ? (
+            filteredClasses.map((cls, index) => (
+              <div key={index} className="row-main">
+                <div className="course">{cls.name}</div>
+                <div className="days">{cls.days}</div>
+                <div className="time">{cls.time}</div>
+                <button className="add-button" onClick={() => handleAddClass(cls)}>
+                  Add
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No classes found.</p>
+          )}
         </div>
 
-        {/* My Classes Section */}
+        {/*  My Classes */}
         {myClasses.length > 0 && (
           <div className="my-classes">
-            <h2 className="my-classes-title">My Classes</h2>
-            <ul className="my-classes-list">
+            <div className="class-list">
+              <h2> My Classes </h2>
               {myClasses.map((cls, index) => (
-                <li key={index} className="row-main">
+                <div key={index} className="row-main">
                   <div className="course">{cls.name}</div>
                   <div className="days">{cls.days}</div>
                   <div className="time">{cls.time}</div>
-                </li>
+                  <button
+                    className="remove-button" onClick={() => handleRemoveClass(index)}
+                  >
+                    Remove
+                  </button>
+                </div>
               ))}
-            </ul>
-          </div>
+            </div>
+          </div>    
         )}
       </div>
     </div>
