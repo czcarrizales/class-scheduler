@@ -1,0 +1,63 @@
+.Class-Row 
+{
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    padding: 12px;
+    width: 100%;
+}
+
+.class-left
+{
+    flex: 1;
+}
+
+.class-code
+{
+    font-weight: 600;
+    color: #111827;
+}
+
+.class-center
+{
+    width: 180px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.class-right
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.class-time
+{
+    color: #6b7280;
+    font-size: 0.95rem;
+    display: none;
+}
+
+@media (min-width: 640px)
+{
+    .class-time {display: block;}
+}
+
+.class-add
+{
+    background: #2536eb;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.class-add:hover
+{
+    background: #1e40af;
+}
