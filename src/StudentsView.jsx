@@ -2,34 +2,37 @@ import React, { useEffect, useState } from "react"
 import Student from './models/Student.js'
 import StudentRow from './StudentRow.jsx'
 
-function StudentsView() {
-
-    const [students, setStudents] = useState([])
+function StudentsView({allStudents, setAllStudents}) {
 
     useEffect(() => {
-        setStudents(Student.list())
+        setAllStudents(Student.list())
         console.log(Student.list())
     }, [])
 
     useEffect(() => {
         console.log('students have changed!')
-    }, [students])
+    }, [allStudents])
 
     function addStudent() {
         Student.create({
             name: 'test',
             email: 'test@example',
-            classes: ['biology', 'math']
+            classes: [{
+                id: "film101",
+                name: "Film 101",
+                dates: ["Monday", "Wednesday"],
+                time: "6:00–8:30 PM",
+            }]
         })
         const read = Student.list();
         console.log(read)
         console.log('student added')
-        setStudents(Student.list())
+        setAllStudents(Student.list())
     }
 
     function deleteAllStudents() {
         Student.clearAll()
-        setStudents(Student.list())
+        setAllStudents(Student.list())
     }
 
     return (
@@ -40,9 +43,9 @@ function StudentsView() {
             <button onClick={deleteAllStudents}>delete all students</button>
             <button onClick={addStudent}>add test student</button>
 
-            {students.map((s) => {
+            {allStudents.map((s) => {
                 return (
-                    <StudentRow key={s.id} name={s.name} email={s.email} id={s.id} setStudents={setStudents} />
+                    <StudentRow key={s.id} name={s.name} email={s.email} id={s.id} setAllStudents={setAllStudents} />
                 )
 
             })}

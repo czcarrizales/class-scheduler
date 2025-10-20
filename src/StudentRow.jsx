@@ -2,7 +2,7 @@ import './StudentRow.css'
 import { useEffect, useState } from 'react'
 import Student from './models/Student'
 
-function StudentRow({ name, id, email, setStudents }) {
+function StudentRow({ name, id, email, setAllStudents }) {
     const [studentInfo, setStudentInfo] = useState({})
     const [studentName, setStudentName] = useState('')
     const [studentEmail, setStudentEmail] = useState('')
@@ -10,28 +10,20 @@ function StudentRow({ name, id, email, setStudents }) {
 
     useEffect(() => {
         const initialStudentInfo = Student.get(id)
-        console.log(initialStudentInfo)
         setStudentInfo(initialStudentInfo)
         setStudentName(initialStudentInfo.name)
         setStudentEmail(initialStudentInfo.email)
     }, [])
 
-    useEffect(() => {
-        console.log(studentInfo)
-        console.log('student info has changed')
-    }, [studentInfo])
-
     function deleteStudent(id) {
-        console.log(id)
         Student.remove(id)
-        setStudents(Student.list())
+        setAllStudents(Student.list())
     }
 
     function updateStudent(id, patch) {
         Student.update(id, patch)
         const updatedStudent = Student.get(id)
         setStudentInfo(updatedStudent)
-        console.log(updatedStudent)
         setEditing(false)
     }
 
@@ -55,8 +47,8 @@ function StudentRow({ name, id, email, setStudents }) {
                         <p>{studentName}</p>
                         <p>{studentInfo.id}</p>
                         <p>{studentEmail}</p>
-                        <button onClick={() => setEditing(!editing)}>Edit</button>
-                        <button onClick={() => deleteStudent(id)}>Delete</button>
+                        <button className='edit-student' onClick={() => setEditing(!editing)}>Edit</button>
+                        <button className='delete-student' onClick={() => deleteStudent(id)}>Delete</button>
                     </div>
             }
         </>
