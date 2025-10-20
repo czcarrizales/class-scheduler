@@ -9,19 +9,43 @@ const storage = {
 const parse = (raw) => { try { return raw ? JSON.parse(raw) : []; } catch { return []; } };
 const readAll = () => parse(storage.get());
 const writeAll = (arr) => storage.set(JSON.stringify(arr));
-const genId = () => (crypto?.randomUUID?.().replace(/-/g, "").slice(0, 10) ?? Math.random().toString(36).slice(2, 12));
+
+// Dummy catalog (read-only)
+const defaultClasses = [
+  {
+    id: "bio101",
+    name: "Biology 101",
+    dates: ["Monday", "Wednesday"],
+    time: "9:00–10:15 AM",
+  },
+  {
+    id: "cs201",
+    name: "Intro to Programming",
+    dates: ["Tuesday", "Thursday"],
+    time: "10:30–11:45 AM",
+  },
+  {
+    id: "math120",
+    name: "Calculus I",
+    dates: ["Friday"],
+    time: "1:00–4:15 PM",
+  },
+];
 
 export const ClassModel = {
-  create({ name, dates = [], time }) {
-    const c = { id: genId(), name, dates, time };
-    const all = readAll(); all.push(c); writeAll(all); return c;
+  // Seed once if empty; keeps LocalStorage in sync with your helpers above
+  seed() {
+    const existing = readAll();
+    if (existing.length === 0) writeAll(defaultClasses);
+    return readAll();
   },
+
+  // Read operations (no create/update/delete by design)
   list() { return readAll(); },
   get(id) { return readAll().find(c => c.id === id) || null; },
-  update(id, patch) {
-    const all = readAll(); const i = all.findIndex(c => c.id === id);
-    if (i < 0) return null; all[i] = { ...all[i], ...patch, id }; writeAll(all); return all[i];
-  },
-  remove(id) { writeAll(readAll().filter(c => c.id !== id)); },
   clearAll() { storage.remove(); },
+  // Optional dev helper to restore defaults quickly
+  reset() { storage.remove(); writeAll(defaultClasses); },
 };
+
+export default ClassModel;

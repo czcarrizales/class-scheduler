@@ -1,7 +1,21 @@
 import { Link } from 'react-router-dom'
 import './Nav.css'
+import Student from './models/Student.js'
+import { useEffect, useState } from 'react'
 
-function Nav() {
+function Nav({mainStudent, setMainStudent, allStudents}) {
+
+    const [studentDropdownList, setStudentDropdownList] = useState([])
+
+    useEffect(() => {
+        console.log('students have changed so change dropdown list')
+        console.log(Student.list())
+        setStudentDropdownList(Student.list())
+    }, [allStudents])
+
+    useEffect(() => {
+        console.log('main student has changed so change nav')
+    }, [mainStudent])
 
     return (
         <>
@@ -12,9 +26,18 @@ function Nav() {
                     <Link to="students" className='nav-link'>Students</Link>
                 </div>
                 <div className='nav-offset'>
-                    <select name="" id="" className='student-dropdown'>
-                        <option value="user">user</option>
-                        <option value="user2">user2</option>
+                    <select onChange={(e) => {
+                        const selectedId = e.target.value;
+                        const selected = Student.get(selectedId)
+                        setMainStudent(selected)
+                    }} className='student-dropdown'>
+                        {
+                            studentDropdownList.map((s) => {
+                                return (
+                                    <option key={s.id} value={s.id}>{s.name}</option>
+                                )
+                            })
+                        }
                     </select>
                     <Link to="addstudent" className='add-student'>Add Student</Link>
                 </div>

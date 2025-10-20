@@ -1,5 +1,37 @@
-.student-row-main {
+.student-row-main 
+{
     display: flex;
-    justify-content: space-evenly;
-    border: 1px solid;
+    justify-content: space-around;
+    align-items: center;
+    background: white;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    padding: 12px;
+    width: 100%;
+}
+
+.edit-student {
+    color: white;
+    background-color: green;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 500;
+}
+
+.delete-student {
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 500;
+}
+
+.edit-student:hover {
+    cursor: pointer;
+}
+
+.delete-student:hover {
+    cursor: pointer;
 }

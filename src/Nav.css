@@ -38,6 +38,7 @@
     border-radius: 8px;
     padding: 8px 12px;
     font-weight: 600;
+    text-decoration: none;
 }
 
 .add-student:hover {
