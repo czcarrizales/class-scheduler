@@ -12,31 +12,37 @@ import { useEffect, useState } from 'react'
 
 function App() {
 
-  const [mainStudent, setMainStudent] = useState({})
+  const [mainStudent, setMainStudent] = useState(null)
   const [allStudents, setAllStudents] = useState([])
 
   useEffect(() => {
     Class.seed()
     console.log(Class.list())
     setAllStudents(Student.list())
+    const all = Student.list()
+    setMainStudent(all[0] ?? null)
   }, [])
 
   useEffect(() => {
-    console.log('this is the main student')
-    console.log(mainStudent)
-  }, [mainStudent])
+    console.log('students list has changed!')
+    if (!mainStudent || Object.keys(mainStudent).length === 0) {
+      setMainStudent(allStudents[0])
+    }
+  }, [allStudents])
 
   useEffect(() => {
-    console.log('students list has changed!')
-  }, [allStudents])
+  if (!mainStudent && allStudents.length) {
+    setMainStudent(allStudents[0]);
+  }
+}, [allStudents, mainStudent]);
 
   return (
     <>
       <BrowserRouter>
         <Nav mainStudent={mainStudent} setMainStudent={setMainStudent} allStudents={allStudents} />
         <Routes>
-          <Route path='/' element={<ScheduleView mainStudent={mainStudent}/>} />
-          <Route path='/students' element={<StudentsView allStudents={allStudents} setAllStudents={setAllStudents}/>} />
+          <Route path='/' element={<ScheduleView mainStudent={mainStudent} allStudents={allStudents}/>} />
+          <Route path='/students' element={<StudentsView allStudents={allStudents} setAllStudents={setAllStudents} mainStudent={mainStudent} setMainStudent={setMainStudent}/>} />
           <Route path='/classes' element={<ClassesView mainStudent={mainStudent} setMainStudent={setMainStudent}/>} />
           <Route path='/addstudent' element={<AddStudentView setAllStudents={setAllStudents}/>} />
         </Routes>

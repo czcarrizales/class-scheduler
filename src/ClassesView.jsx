@@ -40,7 +40,7 @@ function ClassesView({ mainStudent, setMainStudent }) {
   // Function to remove
   const handleRemoveClass = (classToRemove) => {
     console.log(classToRemove)
-    const filtered = mainStudent.classes.filter(id => id !== classToRemove)
+    const filtered = mainStudent.classes.filter(cls => cls.id !== classToRemove)
     console.log(filtered)
     const updatedStudent = Student.update(mainStudent.id, {
       classes: filtered
