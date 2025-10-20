@@ -2,7 +2,7 @@ import './StudentRow.css'
 import { useEffect, useState } from 'react'
 import Student from './models/Student'
 
-function StudentRow({ name, id, email, setAllStudents }) {
+function StudentRow({ name, id, email, setAllStudents, mainStudent, setMainStudent }) {
     const [studentInfo, setStudentInfo] = useState({})
     const [studentName, setStudentName] = useState('')
     const [studentEmail, setStudentEmail] = useState('')
@@ -17,7 +17,9 @@ function StudentRow({ name, id, email, setAllStudents }) {
 
     function deleteStudent(id) {
         Student.remove(id)
-        setAllStudents(Student.list())
+        const list = Student.list();    
+        setAllStudents(list)
+        setMainStudent(prev => (prev?.id === mainStudent.id ? (list[0] ?? null) : prev))
     }
 
     function updateStudent(id, patch) {
