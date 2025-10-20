@@ -1,29 +1,56 @@
 // src/ClassesView.jsx
 import React, { useState, useEffect } from 'react';
+import Class from './models/Class.js'
+import Student from './models/Student.js'
 import './ClassesView.css';
 
-function ClassesView() {
-  const classes = [
-    { name: 'CS 3240', days: 'Mon/Wed', time: '10:00AM - 11:15AM' },
-    { name: 'CS 3350', days: 'Tue/Thu', time: '1:00PM - 2:15PM' },
-    { name: 'CS 2210', days: 'Mon/Wed', time: '2:30PM - 3:45PM' },
-  ];
+function ClassesView({ mainStudent, setMainStudent }) {
 
+  const [availableClasses, setAvailableClasses] = useState([]);
   const [myClasses, setMyClasses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
+  useEffect(() => {
+    setAvailableClasses(Class.list())
+  }, [])
+
+  useEffect(() => {
+    console.log('main student update so update classes view')
+    if (!mainStudent || Object.keys(mainStudent).length === 0) {
+      setMyClasses([])
+      return
+    }
+    setMyClasses(mainStudent.classes)
+    console.log(mainStudent.classes)
+  }, [mainStudent])
+
   // Function to add
   const handleAddClass = (selectedClass) => {
-    setMyClasses((prev) => [...prev, selectedClass]);
+    if (myClasses.some(c => c.id === selectedClass.id)) {
+    console.log("Class already added.");
+    return;
+  }
+    const updatedClasses = [...myClasses, selectedClass]
+    const updatedStudent = Student.update(mainStudent.id, {
+      classes: updatedClasses
+    })
+    setMainStudent(updatedStudent)
   };
 
   // Function to remove
-  const handleRemoveClass = (indexToRemove) => {
-    setMyClasses((prev) => prev.filter((_, index) => index !== indexToRemove));
+  const handleRemoveClass = (classToRemove) => {
+    console.log(classToRemove)
+    const filtered = mainStudent.classes.filter(id => id !== classToRemove)
+    console.log(filtered)
+    const updatedStudent = Student.update(mainStudent.id, {
+      classes: filtered
+    })
+    console.log(updatedStudent)
+    setMainStudent(updatedStudent)
   };
 
   // Function to search
-  const filteredClasses = classes.filter((cls) =>
+  const filteredClasses = availableClasses.filter((cls) =>
     cls.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -42,7 +69,7 @@ function ClassesView() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          </div>
+        </div>
 
         {/* Available Classes */}
         <h2>Available Classes</h2>
@@ -51,7 +78,7 @@ function ClassesView() {
             filteredClasses.map((cls, index) => (
               <div key={index} className="row-main">
                 <div className="course">{cls.name}</div>
-                <div className="days">{cls.days}</div>
+                <div className="days">{cls.dates}</div>
                 <div className="time">{cls.time}</div>
                 <button className="add-button" onClick={() => handleAddClass(cls)}>
                   Add
@@ -68,20 +95,20 @@ function ClassesView() {
           <div className="my-classes">
             <div className="class-list">
               <h2> My Classes </h2>
-              {myClasses.map((cls, index) => (
-                <div key={index} className="row-main">
+              {myClasses.map((cls) => (
+                <div key={cls.id} className="row-main">
                   <div className="course">{cls.name}</div>
-                  <div className="days">{cls.days}</div>
+                  <div className="days">{cls.dates}</div>
                   <div className="time">{cls.time}</div>
                   <button
-                    className="remove-button" onClick={() => handleRemoveClass(index)}
+                    className="remove-button" onClick={() => handleRemoveClass(cls.id)}
                   >
                     Remove
                   </button>
                 </div>
               ))}
             </div>
-          </div>    
+          </div>
         )}
       </div>
     </div>
