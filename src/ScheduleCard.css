@@ -1,0 +1,32 @@
+.schedule-card
+{
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: #ffffff;
+border: 1px solid #e6e6e6;
+border-radius: 6px;
+padding: 10px 14px;
+width: 100%;
+box-sizing: border-box; 
+}
+
+.schedule-left 
+{
+    font-weight: 600;
+    color: #111827;
+}
+
+.schedule-right
+{
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.schedule-empty
+{
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    color: #111827;
+}
