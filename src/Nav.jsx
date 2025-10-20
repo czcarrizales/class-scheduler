@@ -8,15 +8,15 @@ function Nav() {
             <div className='nav-main'>
                 <div className='nav-links'>
                     <Link to="/" className='nav-link'>Schedule</Link>
-                    <a href="" className='nav-link'>Classes</a>
-                    <a href="" className='nav-link'>Students</a>
+                    <Link to="classes" className='nav-link'>Classes</Link>
+                    <Link to="students" className='nav-link'>Students</Link>
                 </div>
                 <div className='nav-offset'>
                     <select name="" id="" className='student-dropdown'>
                         <option value="user">user</option>
                         <option value="user2">user2</option>
                     </select>
-                    <button className='add-student'>Add Student</button>
+                    <Link to="addstudent" className='add-student'>Add Student</Link>
                 </div>
 
             </div>
