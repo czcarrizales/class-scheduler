@@ -1,79 +1,52 @@
-import React, {useState} from "react"
+import React, { useEffect, useState } from "react"
+import Student from './models/Student.js'
+import StudentRow from './StudentRow.jsx'
 
+function StudentsView() {
 
-function StudentsView()
-{
-const [students, setStudents] = useState ([
-    {id: 1, name: "Ibrahim Alhumaidi", studentID: "1234", email: "Alhumaid@csub.edu"},
-    {id: 2, name: "Chazz carrizales", studentID: "1235", email: "Carrizales@csub.edu"},
-    {id: 3, name: "Oscar Rocha", studentID: "1236", email: "Rocha@csub.edu"}
-]);
+    const [students, setStudents] = useState([])
 
-const [name, setName]  = useState("");
-const [studentID, setStudenID] = useState("");
-const [email, setEmail] = useState("");
+    useEffect(() => {
+        setStudents(Student.list())
+        console.log(Student.list())
+    }, [])
 
-function Add(e)
-{
-    // prevents page from reloading
-    e.preventDefault();
-    if (!name.trim()) return;
+    useEffect(() => {
+        console.log('students have changed!')
+    }, [students])
 
-    const newStudent = 
-    {
-        id: Date.now(),
-        name: name.trim(),
-        studentID: studentID.trim() || "-",
-        email: email.trim() || "-"
-    };
-    setStudents((prev) => [newStudent, ...prev]);
-    setName("");
-    setStudenID("");
-    setEmail("");
-}
+    function addStudent() {
+        Student.create({
+            name: 'test',
+            email: 'test@example',
+            classes: ['biology', 'math']
+        })
+        const read = Student.list();
+        console.log(read)
+        console.log('student added')
+        setStudents(Student.list())
+    }
 
+    function deleteAllStudents() {
+        Student.clearAll()
+        setStudents(Student.list())
+    }
 
-function Delete(id)
-{
-// deletes student when id number is given
-setStudents((prev) => prev.filter((s) => s.id != id));
-}
+    return (
+        <>
+            <h1>
+                Student View
+            </h1>
+            <button onClick={deleteAllStudents}>delete all students</button>
+            <button onClick={addStudent}>add test student</button>
 
-  return  (
-    <>
-    <h1>
-        Student View 
-    </h1>
+            {students.map((s) => {
+                return (
+                    <StudentRow key={s.id} name={s.name} email={s.email} id={s.id} setStudents={setStudents} />
+                )
 
-    <form onSubmit = {Add} style = {{marginBottom: "1rem"}}>
-        <input
-        placeholder = "Name"
-        value = {name}
-        onChange = {(e) => setName(e.target.value)}
-        />
-        <input
-        placeholder = "Student ID"
-        value = {studentID}
-        onChange = {(e) => setStudenID(e.target.value)}
-        />
-        <input
-        placeholder = "Email"
-        value = {email}
-        onChange = {(e) => setemail(e.target.value)}
-        />
-        <button type = "submit">Add Studnet</button>
-
-    </form>
-
-<ul>
-    {students.map ((s) => (
-        <li key = {s.id}>
-            {s.name} - {s.studnetID} - {s.email}{" "}
-            <button onClick = {() => delete(s.id)} >Delete</button>
-        </li>
-    ))}
-</ul>
-    </>
-  );
+            })}
+        </>
+    );
 }
 export default StudentsView

@@ -15,7 +15,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path='/' element={<ScheduleView/>} />
-          <Route path='/' element={<StudentsView/>} />
+          <Route path='/students' element={<StudentsView/>} />
           <Route path='/classes' element={<ClassesView/>} />
           <Route path='/addstudent' element={<AddStudentView/>} />
         </Routes>
