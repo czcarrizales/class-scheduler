@@ -8,7 +8,8 @@ function AddStudentView({ setAllStudents }) {
   const [email, setEmail] = useState('')
   const navigate = useNavigate()
 
-  function addStudent() {
+  function addStudent(e) {
+    e.preventDefault()
     if (name == '' || email == '') {
       return
     }
@@ -23,24 +24,24 @@ function AddStudentView({ setAllStudents }) {
 
   return (
     <div className="add-student-container">
-      <div className="form-card">
+      <form className="form-card" onSubmit={addStudent}>
         <h2 className="form-title">Add Student</h2>
 
         <div className="form-group">
           <label>Name:</label>
-          <input type="text" placeholder="Enter student name" onChange={(e) => setName(e.target.value)} />
+          <input type="text" placeholder="Enter student name" onChange={(e) => setName(e.target.value)} required />
         </div>
 
         <div className="form-group">
           <label>Email:</label>
-          <input type="email" placeholder="Enter student email" onChange={(e) => setEmail(e.target.value)} />
+          <input type="email" placeholder="Enter student email" onChange={(e) => setEmail(e.target.value)} required />
         </div>
 
         <div className="button-group">
           <button className="cancel-button" onClick={() => navigate(-1)}>Cancel</button>
-          <button className="save-button" onClick={() => addStudent()}>Save</button>
+          <button type='submit' className="save-button">Save</button>
         </div>
-      </div>
+      </form>
     </div>
   );
 
