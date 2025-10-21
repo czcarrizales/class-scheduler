@@ -54,16 +54,7 @@ function ClassesView({ mainStudent, setMainStudent }) {
       <div className="classes-content">
         <h1 className="classes-title">Classes View</h1>
 
-        {/* Search */}
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search classes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+        
 
         {/*  My Classes */}
         {myClasses.length > 0 ? (
@@ -73,7 +64,7 @@ function ClassesView({ mainStudent, setMainStudent }) {
               {myClasses.map((cls) => (
                 <div key={cls.id} className="row-main">
                   <div className="course">{cls.name}</div>
-                  <div className="days">{cls.dates}</div>
+                  <div className="days">{cls.dates.join(', ')}</div>
                   <div className="time">{cls.time}</div>
                   <button
                     className="remove-button" onClick={() => handleRemoveClass(cls.id)}
@@ -92,6 +83,17 @@ function ClassesView({ mainStudent, setMainStudent }) {
           </div>
         }
 
+        {/* Search */}
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search classes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
         {/* Available Classes */}
         <h2>Available Classes</h2>
         <div className="class-list">
@@ -99,7 +101,7 @@ function ClassesView({ mainStudent, setMainStudent }) {
             filteredClasses.map((cls, index) => (
               <div key={index} className="row-main">
                 <div className="course">{cls.name}</div>
-                <div className="days">{cls.dates}</div>
+                <div className="days">{cls.dates.join(', ')}</div>
                 <div className="time">{cls.time}</div>
                 <button className="add-button" onClick={() => handleAddClass(cls)}>
                   Add
