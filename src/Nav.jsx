@@ -8,13 +8,10 @@ function Nav({mainStudent, setMainStudent, allStudents}) {
     const [studentDropdownList, setStudentDropdownList] = useState([])
 
     useEffect(() => {
-        console.log('students have changed so change dropdown list')
-        console.log(Student.list())
         setStudentDropdownList(Student.list())
     }, [allStudents])
 
     useEffect(() => {
-        console.log('main student has changed so change nav')
     }, [mainStudent])
 
     return (

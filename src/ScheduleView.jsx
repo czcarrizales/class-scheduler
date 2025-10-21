@@ -4,8 +4,9 @@ import ScheduleCard from './ScheduleCard'
 
 function ScheduleView({ mainStudent, allStudents }) {
 
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
   useEffect(() => {
-    console.log('coming from schedule view')
   }, [mainStudent])
 
   useEffect(() => {
@@ -13,17 +14,22 @@ function ScheduleView({ mainStudent, allStudents }) {
   }, [allStudents])
 
   return (
-    <>
+    <div className='schedule-view-main'>
       <h1>Schedule View</h1>
-      {
-        mainStudent?.classes?.map((cls) => {
-          return (
-            <ScheduleCard key={cls.id} title={cls.name} time={cls.time} className={cls.name} />
-          )
+      <div className='schedule'>
+        {
+          daysOfWeek.map(day => (
+            <div>
+              <h2 className='day-title'>{day}</h2>
+              {mainStudent?.classes?.filter(cls => cls.dates.includes(day)).map(cls => (
+                <ScheduleCard key={cls.id} title={cls.name} time={cls.time} className={cls.name} />
+              ))}
+            </div>
+          ))
+        }
+      </div>
 
-        })
-      }
-    </>
+    </div>
   )
 }
 
