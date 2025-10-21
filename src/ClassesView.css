@@ -7,8 +7,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  background-color: white;
-  width: 100%;           
+  background-color: white;          
   max-width: 1600px;     
   margin: 16px;
 }
@@ -85,4 +84,13 @@
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 20px;
+}
+
+.my-classes {
+  margin-bottom: 20px;
+}
+
+.class-list {
+  max-height: 400px;
+  overflow-y: scroll;
 }

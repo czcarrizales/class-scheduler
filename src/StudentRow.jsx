@@ -13,11 +13,13 @@ function StudentRow({ name, id, email, setAllStudents, mainStudent, setMainStude
         setStudentInfo(initialStudentInfo)
         setStudentName(initialStudentInfo.name)
         setStudentEmail(initialStudentInfo.email)
+        console.log(mainStudent)
+        console.log(studentInfo)
     }, [])
 
     function deleteStudent(id) {
         Student.remove(id)
-        const list = Student.list();    
+        const list = Student.list();
         setAllStudents(list)
         setMainStudent(prev => (prev?.id === mainStudent.id ? (list[0] ?? null) : prev))
     }
@@ -38,8 +40,8 @@ function StudentRow({ name, id, email, setAllStudents, mainStudent, setMainStude
                         <input value={studentName} onChange={(e) => setStudentName(e.target.value)} />
                         <p>{id}</p>
                         <input value={studentEmail} onChange={(e) => setStudentEmail(e.target.value)} />
-                        <button onClick={() => setEditing(!editing)}>Cancel</button>
-                        <button onClick={() => updateStudent(id, {
+                        <button className='cancel-edit' onClick={() => setEditing(!editing)}>Cancel</button>
+                        <button className='save-edit' onClick={() => updateStudent(id, {
                             name: studentName,
                             email: studentEmail
                         })}>Save</button>
@@ -49,8 +51,16 @@ function StudentRow({ name, id, email, setAllStudents, mainStudent, setMainStude
                         <p>{studentName}</p>
                         <p>{studentInfo.id}</p>
                         <p>{studentEmail}</p>
-                        <button className='edit-student' onClick={() => setEditing(!editing)}>Edit</button>
-                        <button className='delete-student' onClick={() => deleteStudent(id)}>Delete</button>
+
+                        {mainStudent?.id === id && (
+                            <>
+                                <button className='edit-student' onClick={() => setEditing(!editing)}>Edit</button>
+                                <button className='delete-student' onClick={() => deleteStudent(id)}>Delete</button>
+                            </>
+                        )}
+
+
+
                     </div>
             }
         </>

@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react"
 import Student from './models/Student.js'
 import StudentRow from './StudentRow.jsx'
+import './StudentsView.css'
 
 function StudentsView({allStudents, setAllStudents, mainStudent, setMainStudent}) {
 
     useEffect(() => {
         setAllStudents(Student.list())
-        console.log(Student.list())
     }, [])
 
     useEffect(() => {
-        console.log('students have changed!')
     }, [allStudents])
 
     return (
-        <>
+        <div className="student-view-main">
             <h1>
                 Student View
             </h1>
@@ -24,7 +23,7 @@ function StudentsView({allStudents, setAllStudents, mainStudent, setMainStudent}
                 )
 
             })}
-        </>
+        </div>
     );
 }
 export default StudentsView

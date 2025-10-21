@@ -1,13 +1,14 @@
-.student-row-main 
-{
+.student-row-main {
     display: flex;
     justify-content: space-around;
     align-items: center;
     background: white;
     border: 1px solid #e6e6e6;
-    border-radius: 6px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 12px;
     width: 100%;
+    margin-top: 8px;
 }
 
 .edit-student {
@@ -33,5 +34,31 @@
 }
 
 .delete-student:hover {
+    cursor: pointer;
+}
+
+.cancel-edit {
+    color: black;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 500;
+}
+
+.save-edit {
+    color: white;
+    background-color: blue;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 500;
+}
+
+.cancel-edit:hover {
+    cursor: pointer;
+}
+
+.save-edit:hover {
     cursor: pointer;
 }

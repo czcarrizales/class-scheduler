@@ -17,14 +17,12 @@ function App() {
 
   useEffect(() => {
     Class.seed()
-    console.log(Class.list())
     setAllStudents(Student.list())
     const all = Student.list()
     setMainStudent(all[0] ?? null)
   }, [])
 
   useEffect(() => {
-    console.log('students list has changed!')
     if (!mainStudent || Object.keys(mainStudent).length === 0) {
       setMainStudent(allStudents[0])
     }
