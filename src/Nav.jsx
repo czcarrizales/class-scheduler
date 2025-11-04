@@ -19,7 +19,7 @@ function Nav({mainStudent, setMainStudent, allStudents}) {
             <div className='nav-main'>
                 <div className='nav-links'>
                     <Link to="/" className='nav-link'>Schedule</Link>
-                    <Link to="classes" className='nav-link'>Classes</Link>
+                    <Link to="classes" className='nav-link'>Classesssssss</Link>
                     <Link to="students" className='nav-link'>Students</Link>
                 </div>
                 <div className='nav-offset'>
